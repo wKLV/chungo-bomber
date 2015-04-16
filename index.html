@@ -10,42 +10,140 @@
     <script type="text/javascript">
 
     window.onload = function() {
+        var map = [0, 0, 0, 164, 0, 0, 0, 0, 164, 0, 0, 0, 0, 0, 164, 296, 234, 265, 327, 164, 0, 0, 0, 164, 0, 0, 0, 0, 164, 0, 0, 0, 0, 0, 164, 0, 0, 0, 0, 164, 0, 0, 0, 164, 0, 0, 0, 0, 164, 0, 0, 0, 0, 0, 164, 164, 0, 164, 164, 164, 0, 164, 164, 164, 0, 0, 0, 0, 164, 164, 164, 0, 0, 0, 164, 0, 0, 0, 0, 164, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 164, 0, 164, 164, 164, 164, 0, 164, 164, 164, 164, 164, 164, 164, 0, 164, 164, 164, 164, 164, 164, 0, 164, 0, 0, 0, 0, 164, 0, 164, 0, 0, 0, 0, 0, 0, 0, 0, 164, 0, 0, 0, 164, 0, 164, 164, 164, 164, 0, 0, 0, 0, 164, 0, 0, 0, 164, 0, 0, 0, 0, 0, 164, 0, 0, 0, 0, 164, 164, 164, 164, 164, 164, 164, 0, 164, 164, 164, 164, 164, 164, 0, 164, 164, 164, 0, 164, 164, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 164, 0, 164, 0, 0, 164, 0, 0, 164, 164, 164, 0, 0, 164, 164, 164, 0, 0, 0, 0, 0, 0, 164, 164, 0, 164, 0, 0, 0, 0, 164, 0, 0, 164, 0, 0, 0, 0, 0, 0, 164, 0, 164, 0, 0, 164, 0, 0, 0, 0, 164, 0, 0, 164, 0, 0, 0, 0, 0, 0, 164, 0, 164, 0, 0, 164, 0, 164, 0, 0, 0, 0, 0, 0, 0, 0, 0, 164, 0, 0, 164, 0, 164, 0, 164, 164, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 164, 0, 164, 0, 0, 164, 0, 164, 0, 164, 0, 0, 0, 0, 0, 164, 0, 164, 0, 0, 164, 0, 164, 0, 0, 164, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 164, 0, 164, 164, 0, 164, 164, 164, 164, 164, 164, 164, 164, 164, 164, 164, 164, 164, 164, 0, 164, 0, 164, 0, 0, 164, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 164, 0, 0, 0, 0, 164, 164, 164, 164, 164, 164, 164, 164, 164, 164, 164, 164, 164, 164, 164, 164, 164, 164, 164, 164, 164];
+        var prota_position = {x:0,y:1};
 
-        var game = new Phaser.Game(2560, 2560, Phaser.AUTO, '', { preload: preload, create: create });
+        var game = new Phaser.Game(2560, 2560, Phaser.AUTO, '', { preload: preload, create: create, update:update, rende:render });
 
         function preload () {
 
           game.load.image('logo', 'phaser.png');
-          game.load.tilemap('map', 'map.json', null, Phaser.Tilemap.TILED_JSON);
+          game.load.tilemap('map', null, generateTilemap(map), Phaser.Tilemap.TILED_JSON);
           game.load.image('building', 'sheet.png');
           game.load.image('sprites', 'spritesheet_complete.png');
+          game.load.spritesheet('sprs', 'spritesheet_complete.png', 128, 256, -1, 2, 2);
 
 
         }
-
+        var prota, protaTween;
+        var upKey;
+        var downKey;
+        var leftKey;
+        var rightKey;
+        var moving = false;
         function create () {
         //    game.physics.startSystem(Phaser.Physics.ARCADE);
 
             var map = game.add.tilemap('map');
             map.addTilesetImage('spritesheet_complete','sprites');
       //      map.addTilesetImage('building');
-            var logo = game.add.sprite(game.world.centerX, game.world.centerY, 'logo');
-            logo.anchor.setTo(0.5, 0.5);
+            prota = game.add.sprite(0, 0, "sprs");
+            prota.y =128;
+            prota.width = 128; prota.height = 256;
+            prota.animations.add("walk", [0, 31, 62]);
+            prota.animations.play("walk", 8, true);
+            prota.anchor.setTo(0,1);
+
+
+  //          var logo = game.add.sprite(game.world.centerX, game.world.centerY, 'logo');
+    //        logo.anchor.setTo(0.5, 0.5);
 
             var layer = map.createLayer("Tile Layer 1");
 
 
             layer.resizeWorld();
 
-            //  Set the tiles for collision.
-            //  Do this BEFORE generating the Box2D bodies below.
-        //    map.setCollisionBetween(1, 12);
+            upKey = game.input.keyboard.addKey(Phaser.Keyboard.UP);
+            downKey = game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
+            leftKey = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
+            rightKey = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
+        }
+
+
+        function update() {
+          if (upKey.isDown)
+          {
+              tryMove(prota_position.x, prota_position.y-1);
+          }
+          else if (downKey.isDown)
+          {
+            tryMove(prota_position.x, prota_position.y+1);
+          }
+
+          if (leftKey.isDown)
+          {
+            tryMove(prota_position.x-1, prota_position.y);
+          }
+          else if (rightKey.isDown)
+          {
+            tryMove(prota_position.x+1, prota_position.y);
+          }
+
+        }
+
+        function pospx(pos){
+          var px = {x:pos.x*128, y:pos.y*128};
+          return px;
+        }
+        function tryMove(newPosx, newPosy) {
+          if(!moving)
+          if(map[newPosx+(newPosy-1)*20]===0){
+            prota_position = {x:newPosx, y:newPosy};
+            protaTween = game.add.tween(prota);
+            protaTween.to(pospx(prota_position), 500);
+            protaTween.start();
+            protaTween.onComplete.dispatch = function(){moving=false;};
+            moving = true;
+          }
+        }
+
+        function render() {
+
         }
 
     };
 
-    function generateTilemap() {
-      return "8,39\n70,101";
+    function generateTilemap(map) {
+      var data = { "height":20,
+       "layers":[
+              {
+               "data":map,
+               "height":20,
+               "name":"Tile Layer 1",
+               "opacity":1,
+               "type":"tilelayer",
+               "visible":true,
+               "width":20,
+               "x":0,
+               "y":0
+              }],
+       "orientation":"orthogonal",
+       "properties":
+          {
+
+          },
+       "tileheight":128,
+       "tilesets":[
+              {
+               "firstgid":1,
+               "image":"spritesheet_complete.png",
+               "imageheight":2048,
+               "imagewidth":4096,
+               "margin":0,
+               "name":"spritesheet_complete",
+               "properties":
+                  {
+
+                  },
+               "spacing":2,
+               "tileheight":128,
+               "tilewidth":128
+              }],
+       "tilewidth":128,
+       "version":1,
+       "width":20
+     };
+      return data;
     }
 
     </script>
