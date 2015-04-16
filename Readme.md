@@ -6,4 +6,5 @@
 * 10:57 Beggining movement
 * 11:30 The character, it moves and collides w/ walls
 * 12:05 Fire art
-* 13:33 Fire working, not killing yet 
+* 13:33 Fire working, not killing yet
+* 14:13 GAME OVER PAUSE

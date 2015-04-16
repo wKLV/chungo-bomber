@@ -20,7 +20,7 @@
         var firestodelete = [];
 
         var game = new Phaser.Game(2560, 2560, Phaser.AUTO, '', { preload: preload, create: create, update:update, rende:render });
-
+        var gameOVER = false;
         function preload () {
 
           game.load.image('logo', 'phaser.png');
@@ -40,8 +40,9 @@
         var rightKey;
         var spaceKey;
         var moving = false;
+        var firegroup; var bompgroup;
         function create () {
-        //    game.physics.startSystem(Phaser.Physics.ARCADE);
+            game.physics.startSystem(Phaser.Physics.ARCADE);
 
             var map = game.add.tilemap('map');
             map.addTilesetImage('spritesheet_complete','sprites');
@@ -52,7 +53,9 @@
             prota.animations.add("walk", [0, 31, 62]);
             prota.animations.play("walk", 8, true);
             prota.anchor.setTo(0,1);
-
+            game.physics.arcade.enable(prota);
+            firegroup = game.add.group();
+            bompgroup = game.add.group();
     //        game.add.sprite(100, 100,"bomp");
       //      var fire = game.add.sprite(200, 100, "fire");
         //    fire.animations.add("fire");
@@ -89,6 +92,8 @@
           }
           bompstodelete = [];
           firestodelete = [];
+          
+          if(gameOVER) return;
           if (upKey.isDown)
           {
               tryMove(prota_position.x, prota_position.y-1);
@@ -108,6 +113,8 @@
           }
           else if(spaceKey.isDown) {
               var bump = game.add.sprite(prota.x, prota.y-128, "bomp");
+              game.physics.arcade.enable(bump);
+              bompgroup.add(bump);
               bump.timeLeft = 300;
               bump.pos = {x:prota_position.x, y:prota_position.y};
               bomps.push(bump);
@@ -120,6 +127,8 @@
               function makeFire(x, y, dir){
                 if (x >=0 && x<20 && y>=0 &&y <20 &&!mapfires[x+20*(y-1)] && map[x+(y-1)*20]=== 0) {
                     var fire = game.add.sprite(0,0, "fire");
+                    game.physics.arcade.enable(fire);
+                    firegroup.add(fire);
                     var p = pospx({x:x, y:y});
                     fire.x = p.x, fire.y = p.y-128;
                     fire.pos = {x:x, y:y};
@@ -162,6 +171,18 @@
               makeFire(bomp.pos.x, bomp.pos.y, 0);
               bompstodelete.push(bomp);
             }
+          }
+
+          game.physics.arcade.overlap(firegroup, prota, fireProta);
+          game.physics.arcade.overlap(firegroup, bompgroup, itsover);
+
+          function itsover(fire, prota){
+            gameOVER = true;
+            game.add.text(game.camera.width/2, game.camera.height/2, "GAME OVER", {font:"300px Arial", fill:"#FF3333"}).anchor.setTo(0.5, 0.5);
+          }
+          function fireBomp(fire, bomp){
+            firestodelete.push(fire);
+            bomp.timeLeft = 0;
           }
 
       }
