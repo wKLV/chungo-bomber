@@ -8,3 +8,5 @@
 * 12:05 Fire art
 * 13:33 Fire working, not killing yet
 * 14:13 GAME OVER PAUSE
+* 17:00 UNPAUSE
+* 19:00 Monsters 1

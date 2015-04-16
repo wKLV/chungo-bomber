@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
     <head>
+        <link rel="icon" href="favicon.png">
         <meta charset="UTF-8" />
         <title>chungo-bomber</title>
         <script src="phaser.js"></script>
@@ -10,7 +11,7 @@
     <script type="text/javascript">
 
     window.onload = function() {
-        var map = [0, 0, 0, 164, 0, 0, 0, 0, 164, 0, 0, 0, 0, 0, 164, 296, 234, 265, 327, 164, 0, 0, 0, 164, 0, 0, 0, 0, 164, 0, 0, 0, 0, 0, 164, 0, 0, 0, 0, 164, 0, 0, 0, 164, 0, 0, 0, 0, 164, 0, 0, 0, 0, 0, 164, 164, 0, 164, 164, 164, 0, 164, 164, 164, 0, 0, 0, 0, 164, 164, 164, 0, 0, 0, 164, 0, 0, 0, 0, 164, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 164, 0, 164, 164, 164, 164, 0, 164, 164, 164, 164, 164, 164, 164, 0, 164, 164, 164, 164, 164, 164, 0, 164, 0, 0, 0, 0, 164, 0, 164, 0, 0, 0, 0, 0, 0, 0, 0, 164, 0, 0, 0, 164, 0, 164, 164, 164, 164, 0, 0, 0, 0, 164, 0, 0, 0, 164, 0, 0, 0, 0, 0, 164, 0, 0, 0, 0, 164, 164, 164, 164, 164, 164, 164, 0, 164, 164, 164, 164, 164, 164, 0, 164, 164, 164, 0, 164, 164, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 164, 0, 164, 0, 0, 164, 0, 0, 164, 164, 164, 0, 0, 164, 164, 164, 0, 0, 0, 0, 0, 0, 164, 164, 0, 164, 0, 0, 0, 0, 164, 0, 0, 164, 0, 0, 0, 0, 0, 0, 164, 0, 164, 0, 0, 164, 0, 0, 0, 0, 164, 0, 0, 164, 0, 0, 0, 0, 0, 0, 164, 0, 164, 0, 0, 164, 0, 164, 0, 0, 0, 0, 0, 0, 0, 0, 0, 164, 0, 0, 164, 0, 164, 0, 164, 164, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 164, 0, 164, 0, 0, 164, 0, 164, 0, 164, 0, 0, 0, 0, 0, 164, 0, 164, 0, 0, 164, 0, 164, 0, 0, 164, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 164, 0, 164, 164, 0, 164, 164, 164, 164, 164, 164, 164, 164, 164, 164, 164, 164, 164, 164, 0, 164, 0, 164, 0, 0, 164, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 164, 0, 0, 0, 0, 164, 164, 164, 164, 164, 164, 164, 164, 164, 164, 164, 164, 164, 164, 164, 164, 164, 164, 164, 164, 164];
+        var map = [0, 0, 0, 164, 0, 0, 0, 0, 164, 0, 0, 0, 0, 0, 164, 296, 234, 265, 327, 164, 0, 0, 0, 164, 0, 0, 0, 0, 164, 0, 0, 0, 0, 0, 164, 0, 0, 0, 0, 164, 0, 0, 0, 164, 0, 0, 0, 0, 164, 0, 0, 0, 0, 0, 164, 164, 0, 164, 164, 164, 0, 164, 164, 164, 0, 0, 0, 0, 164, 164, 164, 0, 0, 0, 164, 0, 0, 0, 0, 164, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 164, 0, 164, 164, 164, 164, 0, 164, 164, 164, 164, 164, 164, 164, 0, 164, 164, 164, 164, 164, 164, 0, 164, 0, 0, 0, 0, 164, 0, 164, 0, 0, 0, 0, 0, 0, 0, 0, 164, 0, 0, 0, 164, 0, 164, 164, 164, 164, 0, 0, 0, 0, 164, 0, 0, 0, 164, 0, 0, 0, 0, 0, 164, 0, 0, 0, 0, 0, 164, 164, 164, 164, 164, 164, 0, 164, 164, 164, 164, 164, 164, 0, 164, 164, 164, 0, 164, 164, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 164, 0, 164, 0, 0, 164, 0, 0, 164, 164, 164, 0, 0, 164, 164, 164, 0, 0, 0, 0, 0, 0, 164, 164, 0, 164, 0, 0, 0, 0, 164, 0, 0, 164, 0, 0, 0, 0, 0, 0, 164, 0, 164, 0, 0, 164, 0, 0, 0, 0, 164, 0, 0, 164, 0, 0, 0, 0, 0, 0, 164, 0, 164, 0, 0, 164, 0, 164, 0, 0, 0, 0, 0, 0, 0, 0, 0, 164, 0, 0, 164, 0, 164, 0, 164, 164, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 164, 0, 164, 0, 0, 164, 0, 164, 0, 164, 0, 0, 0, 0, 0, 164, 0, 164, 0, 0, 164, 0, 164, 0, 0, 164, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 164, 0, 164, 164, 0, 164, 164, 164, 164, 164, 164, 164, 164, 164, 164, 164, 164, 164, 164, 0, 164, 0, 164, 0, 0, 164, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 164, 0, 0, 0, 0, 0, 164, 164, 164, 164, 164, 164, 164, 164, 164, 164, 164, 164, 164, 164, 164, 164, 164, 164, 164, 164];
         var prota_position = {x:0,y:1};
         var bomps = [];
         var fires = [];
@@ -29,6 +30,8 @@
           game.load.image('bomp', 'bomp.png');
           game.load.image('sprites', 'spritesheet_complete.png');
           game.load.spritesheet('sprs', 'spritesheet_complete.png', 128, 256, -1, 2, 2);
+          game.load.spritesheet('monsts', 'spritesheet_complete.png', 128, 128, -1, 2, 2);
+
           game.load.spritesheet('fire', 'fire.png', 128, 128);
 
 
@@ -40,7 +43,17 @@
         var rightKey;
         var spaceKey;
         var moving = false;
-        var firegroup; var bompgroup;
+        var firegroup; var bompgroup; var monsterGroup;
+        var spawningPoints = [
+          {x: 0,y: 9, left:10},
+          {x: 0,y: 10, left:10},
+          {x: 0,y: 17, left:10},
+          {x: 0,y: 19, left:10},
+          {x: 9,y: 1, left:10},
+          {x: 13,y: 1, left:10},
+          {x: 19,y: 18, left:10},
+          {x: 19,y: 19, left:10}
+        ];
         function create () {
             game.physics.startSystem(Phaser.Physics.ARCADE);
 
@@ -51,11 +64,17 @@
             prota.y =128;
         //    prota.width = 128; prota.height = 256;
             prota.animations.add("walk", [0, 31, 62]);
-            prota.animations.play("walk", 8, true);
+            prota.animations.add("walkback", [63, 94]);
+            prota.animations.add("stand", [124]);
+            prota.animations.add("poop", [32]);
+
+
+            prota.animations.play("stand");
             prota.anchor.setTo(0,1);
             game.physics.arcade.enable(prota);
             firegroup = game.add.group();
             bompgroup = game.add.group();
+            monsterGroup = game.add.group();
     //        game.add.sprite(100, 100,"bomp");
       //      var fire = game.add.sprite(200, 100, "fire");
         //    fire.animations.add("fire");
@@ -94,6 +113,37 @@
           firestodelete = [];
 
           if(gameOVER) return;
+
+          for(var i=0; i<spawningPoints.length; i++){
+            if(Math.random()<0.1){ if(spawningPoints[i].left <0){
+              spawnMonster(spawningPoints[i].x, spawningPoints[i].y);
+              spawningPoints[i].left = 100;
+            }
+              else spawningPoints[i].left--;
+            }
+          }
+
+          function tryMove(newPosx, newPosy) {
+            if(!moving)
+            if(map[newPosx+(newPosy-1)*20]===0){
+              prota_position = {x:newPosx, y:newPosy};
+              protaTween = game.add.tween(prota);
+              protaTween.to(pospx(prota_position), 500);
+              protaTween.start();
+              protaTween.onComplete.dispatch = function(){moving=false;};
+              moving = true;
+              if(leftKey.isDown) {
+                prota.anchor.setTo(1,1);
+                prota.scale.setTo(-1,1);
+              }
+              else if(rightKey.isDown){
+                prota.anchor.setTo(0,1);
+                prota.scale.setTo(1,1);
+              }
+              if(! upKey.isDown) prota.animations.play("walk", 8, true);
+              else prota.animations.play("walkback", 8, true);
+            }
+          }
           if (upKey.isDown)
           {
               tryMove(prota_position.x, prota_position.y-1);
@@ -111,6 +161,8 @@
           {
             tryMove(prota_position.x+1, prota_position.y);
           }
+
+
           else if(spaceKey.isDown) {
               var bump = game.add.sprite(prota.x, prota.y-128, "bomp");
               game.physics.arcade.enable(bump);
@@ -118,7 +170,9 @@
               bump.timeLeft = 300;
               bump.pos = {x:prota_position.x, y:prota_position.y};
               bomps.push(bump);
+              prota.animations.play("poop");
           }
+          if(!moving) prota.animations.play("stand");
 
           for(var i=0; i<bomps.length; i++) {
             var bomp = bomps[i];
@@ -173,8 +227,75 @@
             }
           }
 
+          monsterGroup.forEach(function(monst){
+              if(monst.dead && monst.notdeaddead) {
+                monst.animations.play("dead");
+                monst.notdeaddead = true;
+                setTimeout(function(){monst.destroy();}, 1500)
+                return;
+              }
+              var p = monst.pos;
+              var dir = monst.dir;
+
+              function dirV(){
+                var dirv = {x:0, y:0};
+                switch(monst.dir) {
+                  case 0:
+                    console.error("Direction should not be 0"); break;
+                  case 1:
+                    dirv.y = -1;
+                    break;
+                  case 2:
+                    dirv.x = 1;
+                    break;
+                  case 3:
+                    dirv.y = 1;
+                    break;
+                  case 4:
+                    dirv.x = -1;
+                    break;
+                }
+                return dirv;
+              }
+
+              function isDirOK() {
+                if(monst.dir===0) return false;
+                var dirv = dirV();
+                var newPos = {x:dirv.x+monst.pos.x, y:dirv.y+monst.pos.y}
+                return (map[newPos.x+(newPos.y-1)*20] === 0 &&
+                  !mapfires[newPos.x+(newPos.y-1)*20])
+              }
+
+              function followDir() {
+                if(!isDirOK()){
+                  monst.dir = Math.ceil(Math.random()*4);
+                  return;
+                }
+                var dirv = dirV();
+                monst.pos.x += dirv.x, monst.pos.y += dirv.y;
+
+                doMoveMonst(monst);
+              }
+
+              function doMoveMonst() {
+                monstTween = game.add.tween(monst);
+                monstTween.to(pospx(monst.pos), 400);
+                monstTween.start();
+                monstTween.onComplete.dispatch = function(){monst.hide=true; monst.animations.play("hide");};
+                monst.hide = false;
+                monst.animations.play("walk");
+              }
+
+              if(Math.random()<0.01) followDir();
+              else {
+                monst.hide = true;; //FOLLOW PROTA
+                monst.animations.play("hide");
+              }
+          }, this);
+
           game.physics.arcade.overlap(firegroup, prota, itsover);
           game.physics.arcade.overlap(firegroup, bompgroup, fireBomp);
+          game.physics.arcade.overlap(firegroup, monsterGroup, fireMonster);
 
           function itsover(fire, prota){
             gameOVER = true;
@@ -184,26 +305,38 @@
             firestodelete.push(fire);
             bomp.timeLeft = 0;
           }
+          function fireMonster(fire, monst){
+            monst.dead = true;
+          }
 
       }
+        function spawnMonster(x, y){
+          var p = pospx({x:x, y:y});
+          var monst = game.add.sprite(p.x, p.y, "monsts");
+          monst.pos = {x:x, y:y};
+          monst.dead = false;
+          monst.notdeaddead = true;
+          monst.moving = false;
+          monst.dir = 0;
 
+          monsterGroup.add(monst);
+        //  prota.y =128;
+      //    prota.width = 128; prota.height = 256;
+          monst.animations.add("walk", [87]);
+          monst.animations.add("hide", [89]);
+          monst.animations.add("dead", [118]);
+
+
+          monst.animations.play("hide");
+          monst.anchor.setTo(0,1);
+          game.physics.arcade.enable(monst);
+        }
 
 
         function pospx(pos){
           var px = {x:pos.x*128, y:pos.y*128};
           return px;
 
-        }
-        function tryMove(newPosx, newPosy) {
-          if(!moving)
-          if(map[newPosx+(newPosy-1)*20]===0){
-            prota_position = {x:newPosx, y:newPosy};
-            protaTween = game.add.tween(prota);
-            protaTween.to(pospx(prota_position), 500);
-            protaTween.start();
-            protaTween.onComplete.dispatch = function(){moving=false;};
-            moving = true;
-          }
         }
 
         function render() {
