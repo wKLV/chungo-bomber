@@ -294,6 +294,7 @@
           }, this);
 
           game.physics.arcade.overlap(firegroup, prota, itsover);
+          game.physics.arcade.overlap(monstergroup, prota, itsover);
           game.physics.arcade.overlap(firegroup, bompgroup, fireBomp);
           game.physics.arcade.overlap(firegroup, monsterGroup, fireMonster);
 
