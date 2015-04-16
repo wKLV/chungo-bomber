@@ -92,7 +92,7 @@
           }
           bompstodelete = [];
           firestodelete = [];
-          
+
           if(gameOVER) return;
           if (upKey.isDown)
           {
@@ -173,8 +173,8 @@
             }
           }
 
-          game.physics.arcade.overlap(firegroup, prota, fireProta);
-          game.physics.arcade.overlap(firegroup, bompgroup, itsover);
+          game.physics.arcade.overlap(firegroup, prota, itsover);
+          game.physics.arcade.overlap(firegroup, bompgroup, fireBomp);
 
           function itsover(fire, prota){
             gameOVER = true;
