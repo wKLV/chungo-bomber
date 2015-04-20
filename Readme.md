@@ -15,3 +15,4 @@
 20 april
 10:25 UNPAUSE
 10:35 Resize, flipways again
+11:40 Playable
