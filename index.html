@@ -20,7 +20,7 @@
         var bompstodelete = [];
         var firestodelete = [];
 
-        var game = new Phaser.Game(2560, 2560, Phaser.AUTO, '', { preload: preload, create: create, update:update, render:render });
+        var game = new Phaser.Game(1280, 1280, Phaser.AUTO, '', { preload: preload, create: create, update:update, render:render });
         var gameOVER = false;
         function preload () {
 
@@ -28,11 +28,11 @@
           game.load.tilemap('map', null, generateTilemap(map), Phaser.Tilemap.TILED_JSON);
           game.load.image('building', 'sheet.png');
           game.load.image('bomp', 'bomp.png');
-          game.load.image('sprites', 'spritesheet_complete.png');
-          game.load.spritesheet('sprs', 'spritesheet_complete.png', 128, 256, -1, 2, 2);
-          game.load.spritesheet('monsts', 'spritesheet_complete.png', 128, 128, -1, 2, 2);
+          game.load.image('sprites', 'spritesheet.png');
+          game.load.spritesheet('sprs', 'spritesheet.png', 64, 128, -1, 1, 1);
+          game.load.spritesheet('monsts', 'spritesheet.png', 64, 64, -1, 1, 1);
 
-          game.load.spritesheet('fire', 'fire.png', 128, 128);
+          game.load.spritesheet('fire', 'fire.png', 64, 64);
 
 
         }
@@ -64,7 +64,7 @@
             map.addTilesetImage('spritesheet_complete','sprites');
       //      map.addTilesetImage('building');
             prota = game.add.sprite(0, 0, "sprs");
-            prota.y =128;
+            prota.y =32;
         //    prota.width = 128; prota.height = 256;
             prota.animations.add("walk", [0, 31, 62]);
             prota.animations.add("walkback", [63, 94]);
@@ -73,7 +73,7 @@
 
 
             prota.animations.play("stand");
-            prota.anchor.setTo(0,1);
+            prota.anchor.setTo(0.5,1);
             game.physics.arcade.enable(prota);
             firegroup = game.add.group();
             bompgroup = game.add.group();
@@ -83,46 +83,50 @@
             key1.animations.add("normal", [300]);
             key1.animations.add("used", [269]);
             key1.play("normal");
+            key1.anchor.setTo(0.5,0);
             game.physics.arcade.enable(key1);
             key2 = game.add.sprite(pospx({x:0,y:14}).x, pospx({x:0,y:14}).y, "monsts");
             key2.animations.add("normal", [362]);
             key2.animations.add("used", [331]);
             key2.play("normal");
+            key2.anchor.setTo(0.5,0);
             game.physics.arcade.enable(key2);
             key3 = game.add.sprite(pospx({x:13,y:0}).x, pospx({x:13,y:0}).y, "monsts");
             key3.animations.add("normal", [424]);
             key3.animations.add("used", [393]);
             key3.play("normal");
+            key3.anchor.setTo(0.5,0);
             game.physics.arcade.enable(key3);
             key4 = game.add.sprite(pospx({x:18,y:1}).x, pospx({x:18,y:1}).y, "monsts");
             key4.animations.add("normal", [22]);
             key4.animations.add("used", [455]);
             key4.play("normal");
+            key4.anchor.setTo(0.5,0);
             game.physics.arcade.enable(key4);
 
             obst1 = game.add.sprite(pospx({x:15,y:1}).x, pospx({x:15,y:1}).y, "monsts");
             obst1.animations.add("normal", [295]);
             obst1.animations.add("used", [92]);
             obst1.play("normal");
-            obst1.anchor.setTo(0,1);
+            obst1.anchor.setTo(0.5,1);
             game.physics.arcade.enable(obst1);
             obst2 = game.add.sprite(pospx({x:16,y:1}).x, pospx({x:16,y:1}).y, "monsts");
             obst2.animations.add("normal", [233]);
             obst2.animations.add("used", [92]);
             obst2.play("normal");
-            obst2.anchor.setTo(0,1);
+            obst2.anchor.setTo(0.5,1);
             game.physics.arcade.enable(obst2);
             obst3 = game.add.sprite(pospx({x:17,y:1}).x, pospx({x:17,y:1}).y, "monsts");
             obst3.animations.add("normal", [264]);
             obst3.animations.add("used", [92]);
             obst3.play("normal");
-            obst3.anchor.setTo(0,1);
+            obst3.anchor.setTo(0.5,1);
             game.physics.arcade.enable(obst3);
             obst4 = game.add.sprite(pospx({x:18,y:1}).x, pospx({x:18,y:1}).y, "monsts");
             obst4.animations.add("normal", [326]);
             obst4.animations.add("used", [92]);
             obst4.play("normal");
-            obst4.anchor.setTo(0,1);
+            obst4.anchor.setTo(0.5,1);
             game.physics.arcade.enable(key4);
 
 
@@ -185,10 +189,10 @@
               protaTween.onComplete.dispatch = function(){moving=false;};
               moving = true;
               if(leftKey.isDown) {
-                prota.flipX = true;
+                prota.scale.x = -1;
               }
               else if(rightKey.isDown){
-                prota.flipX = false;
+                prota.scale.x = 1;
               }
               if(! upKey.isDown) prota.animations.play("walk", 8, true);
               else prota.animations.play("walkback", 8, true);
@@ -214,12 +218,13 @@
 
 
           else if(spaceKey.isDown) {
-              var bump = game.add.sprite(prota.x, prota.y-128, "bomp");
+              var bump = game.add.sprite(prota.x, prota.y-64, "bomp");
               game.physics.arcade.enable(bump);
               bompgroup.add(bump);
               bump.timeLeft = 300;
               bump.pos = {x:prota_position.x, y:prota_position.y};
               bomps.push(bump);
+              bump.anchor.setTo(0.5,0);
               prota.animations.play("poop");
           }
           if(!moving) prota.animations.play("stand");
@@ -234,11 +239,12 @@
                     game.physics.arcade.enable(fire);
                     firegroup.add(fire);
                     var p = pospx({x:x, y:y});
-                    fire.x = p.x, fire.y = p.y-128;
+                    fire.x = p.x, fire.y = p.y-64;
                     fire.pos = {x:x, y:y};
                     fire.animations.add("fire");
                     fire.animations.play("fire", 50, true);
                     fire.timeLeft = 000;
+                    fire.anchor.setTo(0.5,0);
                     fire.alpha = 1;
                     fires.push(fire);
                     var tween = game.add.tween(fire);
@@ -284,8 +290,6 @@
                 setTimeout(function(){monst.destroy();}, 1500)
                 return;
               }
-              var p = monst.pos;
-              var dir = monst.dir;
 
               function dirV(){
                 var dirv = {x:0, y:0};
@@ -344,19 +348,19 @@
           }, this);
 
           game.physics.arcade.overlap(key1, prota, function(){
-            if(key1.y-prota.y > 64 || key1.x -prota.x > 64) return;
+            if(key1.y-prota.y > 32 || key1.x -prota.x > 32) return;
             key1.play("used"); obst1.play("used");
           });
           game.physics.arcade.overlap(key2, prota, function(){
-            if(key2.y-prota.y > 64 || key2.x -prota.x > 64) return;
+            if(key2.y-prota.y > 32 || key2.x -prota.x > 32) return;
             key2.play("used"); obst2.play("used");
           });
           game.physics.arcade.overlap(key3, prota, function(){
-            if(key3.y-prota.y > 64 || key3.x -prota.x > 64) return;
+            if(key3.y-prota.y > 32 || key3.x -prota.x > 32) return;
             key3.play("used"); obst3.play("used");
           });
           game.physics.arcade.overlap(key4, prota, function(){
-            if(key4.y-prota.y > 64 || key4.x -prota.x > 64) return;
+            if(key4.y-prota.y > 32 || key4.x -prota.x > 32) return;
             key4.play("used"); obst4.play("used");
           });
 
@@ -366,7 +370,7 @@
           game.physics.arcade.overlap(firegroup, monsterGroup, fireMonster);
 
           function itsover(fire, prota){
-            if(fire.y-prota.y > 64 || fire.x -prota.x > 64) return;
+            if(fire.y-prota.y > 32 || fire.x -prota.x > 32) return;
             gameOVER = true;
             game.add.text(game.camera.width/2, game.camera.height/2, "GAME OVER", {font:"300px Arial", fill:"#FF3333"}).anchor.setTo(0.5, 0.5);
           }
@@ -397,13 +401,13 @@
 
 
           monst.animations.play("hide");
-          monst.anchor.setTo(0,1);
+          monst.anchor.setTo(0.5,1);
           game.physics.arcade.enable(monst);
         }
 
 
         function pospx(pos){
-          var px = {x:pos.x*128, y:pos.y*128};
+          var px = {x:pos.x*64+32, y:pos.y*64};
           return px;
 
         }
@@ -434,24 +438,24 @@
           {
 
           },
-       "tileheight":128,
+       "tileheight":64,
        "tilesets":[
               {
                "firstgid":1,
                "image":"spritesheet_complete.png",
-               "imageheight":2048,
-               "imagewidth":4096,
+               "imageheight":1024,
+               "imagewidth":2045,
                "margin":0,
                "name":"spritesheet_complete",
                "properties":
                   {
 
                   },
-               "spacing":2,
-               "tileheight":128,
-               "tilewidth":128
+               "spacing":1,
+               "tileheight":64,
+               "tilewidth":64
               }],
-       "tilewidth":128,
+       "tilewidth":64,
        "version":1,
        "width":20
      };

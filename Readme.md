@@ -10,4 +10,8 @@
 * 14:13 GAME OVER PAUSE
 * 17:00 UNPAUSE
 * 19:00 Monsters 1
-* 20:11 Keys & Endgame
+* 20:11 Keys & Endgame PAUSE
+----
+20 april
+10:25 UNPAUSE
+10:35 Resize, flipways again
