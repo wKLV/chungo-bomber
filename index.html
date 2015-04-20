@@ -22,6 +22,7 @@
 
         var game = new Phaser.Game(1280, 1280, Phaser.AUTO, '', { preload: preload, create: create, update:update, render:render });
         var gameOVER = false;
+        var gameWon = [false, false, false, false];
         function preload () {
 
           game.load.image('background', 'background.png');
@@ -32,9 +33,11 @@
           game.load.spritesheet('sprs', 'spritesheet.png', 64, 128, -1, 1, 1);
           game.load.spritesheet('monsts', 'spritesheet.png', 64, 64, -1, 1, 1);
 
-          game.load.spritesheet('fire', 'fire.png', 64, 64);
+          game.load.spritesheet('fire', 'fire2.png', 64, 64);
 
           game.load.audio('music', ['Song5.ogg']);
+          game.load.audio('explosion', ['explosion.wav']);
+
         }
         var prota, protaTween;
         var upKey;
@@ -68,10 +71,13 @@
             prota = game.add.sprite(0, 0, "sprs");
             prota.y =32;
         //    prota.width = 128; prota.height = 256;
-            prota.animations.add("walk", [0, 31, 62]);
+            prota.animations.add("walk", [0, 31, 62, 93]);
             prota.animations.add("walkback", [63, 94]);
             prota.animations.add("stand", [124]);
             prota.animations.add("poop", [32]);
+            prota.animations.add("jump", [155]);
+            prota.animations.add("die", [186]);
+
 
 
             prota.animations.play("stand");
@@ -234,6 +240,9 @@
             var bomp = bomps[i];
             bomp.timeLeft -= 1;
             if(bomp.timeLeft < 0) {
+              var sound = game.add.audio('explosion');
+              sound.play();
+
               function makeFire(x, y, dir){
                 if (x >=0 && x<20 && y>=0 &&y <20 &&!mapfires[x+20*(y-1)] && map[x+(y-1)*20]=== 0) {
                     var fire = game.add.sprite(0,0, "fire");
@@ -351,18 +360,26 @@
           game.physics.arcade.overlap(key1, prota, function(){
             if(key1.y-prota.y > 32 || key1.x -prota.x > 32) return;
             key1.play("used"); obst1.play("used");
+            gameWon[0] = true;
+            if(gameWon[0]&&gameWon[1]&&gameWon[2]&&gameWon[3]) gameWin();
           });
           game.physics.arcade.overlap(key2, prota, function(){
             if(key2.y-prota.y > 32 || key2.x -prota.x > 32) return;
             key2.play("used"); obst2.play("used");
+            gameWon[1] = true;
+            if(gameWon[0]&&gameWon[1]&&gameWon[2]&&gameWon[3]) gameWin();
           });
           game.physics.arcade.overlap(key3, prota, function(){
             if(key3.y-prota.y > 32 || key3.x -prota.x > 32) return;
             key3.play("used"); obst3.play("used");
+            gameWon[2] = true;
+            if(gameWon[0]&&gameWon[1]&&gameWon[2]&&gameWon[3]) gameWin();
           });
           game.physics.arcade.overlap(key4, prota, function(){
             if(key4.y-prota.y > 32 || key4.x -prota.x > 32) return;
             key4.play("used"); obst4.play("used");
+            gameWon[3] = true;
+            if(gameWon[0]&&gameWon[1]&&gameWon[2]&&gameWon[3]) gameWin();
           });
 
           game.physics.arcade.overlap(firegroup, prota, itsover);
@@ -370,10 +387,17 @@
           game.physics.arcade.overlap(firegroup, bompgroup, fireBomp);
           game.physics.arcade.overlap(firegroup, monsterGroup, fireMonster);
 
+          function gameWin(){
+            gameOVER = true;
+            game.add.text(game.camera.width/2, game.camera.height/2, "YOU WON, YOU ROCK", {font:"150px Arial", fill:"#33FF33"}).anchor.setTo(0.5, 0.5);
+            prota.play("jump");
+          }
+
           function itsover(fire, prota){
             if(fire.y-prota.y > 32 || fire.x -prota.x > 32) return;
             gameOVER = true;
-            game.add.text(game.camera.width/2, game.camera.height/2, "GAME OVER", {font:"300px Arial", fill:"#FF3333"}).anchor.setTo(0.5, 0.5);
+            game.add.text(game.camera.width/2, game.camera.height/2, "GAME OVER", {font:"150px Arial", fill:"#FF3333"}).anchor.setTo(0.5, 0.5);
+            prota.play("die");
           }
           function fireBomp(fire, bomp){
             firestodelete.push(fire);
